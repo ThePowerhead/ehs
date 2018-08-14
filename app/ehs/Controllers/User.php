@@ -22,7 +22,8 @@ class User {
         $account->setHashpass(Account::hashpass(Parameters::post("pass"), $account->getHashkey()));
 
         // create player with username given
-        $player = new Player($account);
+        $player = new Player();
+        $player->setAccount($account);
         $player->setPseudo(Parameters::post("name"));
         
         $account->save();

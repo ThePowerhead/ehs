@@ -29,38 +29,37 @@ class Account {
             $this->id = Uuid::uuid4();
             $this->hashkey = Uuid::uuid4();
         }
+        else {
+
+        }
     }
 
     public function save() {
         // KK : new data or update data
         // if isNew then new data
         if ($this->isNew) {
-            $query = "INSERT INTO account(idaccount, email, hashpass, hashkey) VALUES ($this->id, $this->email, $this->hashpass, $this->hashkey)";
+            $query = "INSERT INTO account(idaccount, email, hashpass, hashkey) VALUES (:id, :email, :hashpass, :hashkey)";
             $this->isNew = FALSE;
         }
         else {
             // If already existing, find related account and update it
-            $query = "UPDATE account email = $this->email, hashpass = $this->hashpass, hashkey = $this->hashkey WHERE idaccount = $id";
+            $query = "UPDATE account email = :email, hashpass = :hashpass, hashkey = :hashkey WHERE idaccount = :id";
         }
 
-        try {
-            $stmt = Main::$db->prepare($query);
-            $stmt->bindParam("idaccount", $this->id);
-            $stmt->bindParam("email", $this->email);
-            $stmt->bindParam("hashpass", $this->hashpass);
-            $stmt->bindParam("hashkey", $this->hashkey);
-            
-            echo $idaccount;
-            echo $email;
-            echo $hashpass;
-            echo $hashkey;
+        $stmt = Main::$db->prepare($query);
+        $stmt->bindParam(":id", $this->id);
+        $stmt->bindParam(":email", $this->email);
+        $stmt->bindParam(":hashpass", $this->hashpass);
+        $stmt->bindParam(":hashkey", $this->hashkey);
+        
+        echo $idaccount;
+        echo $email;
+        echo $hashpass;
+        echo $hashkey;
 
-            $stmt->execute();
-            $stmt = null;
-        }
-        catch (Exception $e) { 
-            echo "fail" . $e->getMessage();
-        }
+        $stmt->execute();
+        $stmt = null;
+        
     }
 
     // get\set or not
