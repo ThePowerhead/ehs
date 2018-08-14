@@ -1,0 +1,28 @@
+version: "3"
+services:
+  web:
+    image: thepowerhead/apachephpadvanced
+    ports:
+      - "8080:80"
+    volumes:
+      - ./app:/var/www/html
+    environment:
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+
+  db:
+    image: mariadb
+    ports:
+      - "42033:3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - ./mysql:/var/lib/mysql
+
+  pma:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "42080:80"

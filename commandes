@@ -1,0 +1,12 @@
+do = docker
+doc = docker-compose
+
+do ps -a	// affiche tous les containers, y compris les inactifs
+doc ps		// affiche les containirs de ton environnement docker-compose
+doc up -d	// démarre les containers et les met à jours
+doc stop	// captain
+doc rm		// supprime les containers stoppés (avec confirmation)
+do rm <id|nom> 	// supprime le containers
+do rmi <id|nom> // supprime l'image
+
+

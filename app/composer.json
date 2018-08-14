@@ -1,0 +1,11 @@
+{
+    "require": {
+        "ramsey/uuid": "^3.7",
+        "jenssegers/blade": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "EHS\\": "ehs/"
+        }
+    }
+}
