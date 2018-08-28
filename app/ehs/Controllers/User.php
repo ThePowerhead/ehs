@@ -42,7 +42,7 @@ class User {
 
     public function doLogin() {
         // database validation credentials here
-
+        // from email
         // homepage with or not connection
 
     }

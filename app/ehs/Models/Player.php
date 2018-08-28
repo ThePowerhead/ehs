@@ -38,7 +38,8 @@ class Player {
                     // stocke les données dans mes variables
                     // https://stackoverflow.com/questions/13183579/pdo-get-data-from-database
                     // http://php.net/manual/fr/pdostatement.fetch.php
-                    
+                    // TOODO Like Account
+                    // $this->account = new Account($player->account)
                 }
             }
         }
@@ -56,7 +57,7 @@ class Player {
         $stmt = Main::$db->prepare($query);
         $stmt->bindParam("idplayer", $this->id);
         $stmt->bindParam("level", $this->level);
-        $stmt->bindParam("account", $this->account);
+        $stmt->bindParam("account", $this->account->id);
         $stmt->bindParam("experience", $this->experience);
         
         $stmt->execute();
@@ -91,7 +92,7 @@ class Player {
         return $this->account;
     }
 
-    public function setAccount($account) {
+    public function setAccount(Account $account) {
         $this->account = $account;
     }
 }
