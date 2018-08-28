@@ -15,7 +15,6 @@ class Player {
     private $level;
     private $account;
     private $experience;
-    private $account;
     private $isNew = FALSE;
 
     public function __construct($id = NULL) {
@@ -27,21 +26,22 @@ class Player {
             $this->account = NULL;
         }
         else {
+            $this->isNew = FALSE;
 
             $query = "SELECT * FROM player where idplayer = :id limit 1";
             
             $stmt = Main::$db->prepare($query);
             $stmt->bindParam(":id", $id);
+            $stmt->execute();
 
-            if ($stmt->execute()) {
-                if($player = $stmt->fetch(PDO::FETCH_OBJ)) {
-                    // stocke les données dans mes variables
-                    // https://stackoverflow.com/questions/13183579/pdo-get-data-from-database
-                    // http://php.net/manual/fr/pdostatement.fetch.php
-                    // TOODO Like Account
-                    // $this->account = new Account($player->account)
-                }
-            }
+            if($player = $stmt->fetch(PDO::FETCH_OBJ)) {
+                // https://stackoverflow.com/questions/13183579/pdo-get-data-from-database
+                // http://php.net/manual/fr/pdostatement.fetch.php
+                $this->account = new Account($player->account);
+                $this->pseudo = $player->pseudo;
+                $this->level = $player->level;
+                $this->experience = $player->experience;
+            }            
         }
     }
 
